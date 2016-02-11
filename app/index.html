@@ -7,19 +7,19 @@
 	</head>
 	<body ng-controller="MoviesController">
 		<div class="top_bar"></div>
-		<div class="left_panel panel">
+		<div class="left_panel panel" ng-cloak>
 			<h1>BROWSE MOVIES</h1>
 			<hr />
 			<ul>
 				<li ng-repeat="movie in movies" ng-click="updateSelected(movie)" class="selector" ng-class="{'selected': selected_movie == movie}">
 					<div style="background-image: url('{{ movie.thumb_url }}');"></div>
-					<h2>{{ movie.title | uppercase }}</h2><br>
-					<p>{{ movie.year }}</p>
+					<h2>{{ movie.title | uppercase }}</h2>
+					<p>{{ movie.director }}</p>
 				</li>
 			</ul>
 			<div style="clear: both;"></div>
 		</div>
-		<div class="right_panel panel">
+		<div class="right_panel panel" ng-cloak>
 			<h1>
 				{{selected_movie.title | uppercase}}
 			</h1>
@@ -28,15 +28,25 @@
 			<div>
 				<img src="{{selected_movie.poster_url}}" class="poster" />
 				<h2>WHO MADE IT?</h2>
+				<br>
 				<p>
-					People.
+					<strong>Director:</strong> {{ selected_movie.director }}
+					<br>
+					<strong>Writers: </strong> {{ selected_movie.writers.join(',') }}
+					<br>
+					<strong>Stars: </strong> {{ selected_movie.stars.join(',').substring(0, 50) }} ...
 				</p>
-
+				<br>
+				<br>
 				<h2>WHAT'S IT ABOUT?</h2>
+				<br>
 				<p>
 					{{selected_movie.overview}}
 				</p>
 			</div>
+			<div style="clear: both;"></div>
+			<h1>MOVIE CREDITS</h1>
+			<hr />
 		</div>
 		<script src="./js/secrets.js" type="text/javascript"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js" type="text/javascript"></script>

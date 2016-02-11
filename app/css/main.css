@@ -6,7 +6,7 @@
 	color: #484949;
 	line-height: 18px;
 	list-style-type: none;
-	text-indent: none;
+	text-indent: 0;
 }
 
 .top_bar {
@@ -35,18 +35,19 @@
 	width: 33%;
 	box-shadow: inset -.5em 0 .5em 0 #aaaaaa;
 	left: 0;
-	padding: 6em 4em 3em;
+	padding: 6em 3em 3em;
 }
 
 .right_panel {
 	width: 66%;
 	right: 0;
-	padding: 6em 4em 3em;
+	padding: 6em 3em 3em;
 }
 
 hr {
 	border: 1px solid #ccc;
 	border-bottom: none;
+	margin-bottom: 2em;
 }
 
 h1 {
@@ -67,6 +68,11 @@ li.selector {
 	text-align: center;
 	width: 150px;
 	float: left;
+	margin-top: 3em;
+}
+
+li.selector:nth-child(odd) {
+	margin-right: 2em;
 }
 
 li.selector div {
@@ -79,6 +85,11 @@ li.selector div {
 	margin: 0 auto;
 }
 
+li.selector.selected h2,
+li.selector.selected p {
+	color: #1A9DBA;
+}
+
 li.selector.selected div {
 	border-color: #1A9DBA;
 }
@@ -86,5 +97,5 @@ li.selector.selected div {
 img.poster {
 	width: 174px;
 	float: left;
-	margin: 2em 3em 2em 0;
+	margin: 0 3em 2em 0;
 }
