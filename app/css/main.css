@@ -39,6 +39,7 @@
 .right_panel {
 	width: 66%;
 	right: 0;
+	padding: 6em 4em 3em;
 }
 
 hr {
@@ -57,4 +58,8 @@ h2 {
 	font-size: 14px;
 	color: #484949;
 	font-variant: small-caps;
+}
+
+li.selected {
+	color: #ff0000;
 }
