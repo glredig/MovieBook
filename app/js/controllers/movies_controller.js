@@ -1,23 +1,14 @@
-app.controller('MoviesController', function($scope) {
-	$scope.movies = [
-		{ 
-			title: 'terminator', 
-			year: '1986'
-		},
-		{
-			title: 'terminator 2: judgement day',
-			year: '1992'
-		}
-	]
+app.controller('MoviesController', function($scope, $http) {
+	$scope.movies = [];
 
-	$scope.selected_movie = $scope.movies[0];
-	$scope.movies[0].selected = true;
+	$http.get('https://api.themoviedb.org/3/collection/528?api_key=' + api_key)
+		.then(function(data) {
+			$scope.movies = data.data.parts;
+			$scope.selected_movie = $scope.movies[0];
+		});
 
 	$scope.updateSelected = function(movie) {
-		$scope.movies.forEach(function(movie) {
-			movie.selected = false
-		});
-		movie.selected = true;
 		$scope.selected_movie = movie;
+		console.log(movie);
 	};
 });

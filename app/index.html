@@ -8,20 +8,21 @@
 	<body ng-controller="MoviesController">
 		<div class="top_bar"></div>
 		<div class="left_panel panel">
-			<h1>browse movies</h1>
+			<h1>BROWSE MOVIES</h1>
 			<hr />
 			<ul>
-				<li ng-repeat="movie in movies" ng-click="updateSelected(movie)" ng-class="{'selected': movie.selected}">
+				<li ng-repeat="movie in movies" ng-click="updateSelected(movie)" ng-class="{'selected': selected_movie == movie}">
 					{{ movie.title }} - {{ movie.year }}
 				</li>
 			</ul>
 		</div>
 		<div class="right_panel panel">
 			<h1>
-				{{selected_movie.title}}
+				{{selected_movie.title | uppercase}}
 			</h1>
 			<hr />
 		</div>
+		<script src="./js/secrets.js" type="text/javascript"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js" type="text/javascript"></script>
 		<script src="./js/app.js" type="text/javascript"></script>
 		<script src="./js/controllers/movies_controller.js" type="text/javascript"></script>
