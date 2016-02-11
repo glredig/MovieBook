@@ -1,0 +1,17 @@
+.left_panel {
+	width: 33%;
+	box-shadow: inset -.5em 0 2em 0 #aaaaaa;
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+}
+
+.right_panel {
+	width: 66%;
+	height: 100%;
+	position: absolute;
+	right: 0;
+	top: 0;
+	bottom: 0;
+}
