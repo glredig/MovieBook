@@ -5,6 +5,8 @@
 	font-size: 14px;
 	color: #484949;
 	line-height: 18px;
+	list-style-type: none;
+	text-indent: none;
 }
 
 .top_bar {
@@ -60,6 +62,29 @@ h2 {
 	/*font-variant: small-caps;*/
 }
 
-li.selected {
-	color: #ff0000;
+li.selector {
+	cursor: pointer;
+	text-align: center;
+	width: 150px;
+	float: left;
+}
+
+li.selector div {
+	border-radius: 50%;
+	width: 122px;
+	height: 122px;
+	border: 9px solid #FFFFFF;
+	background-position: center;
+	background-size: 100% auto;
+	margin: 0 auto;
+}
+
+li.selector.selected div {
+	border-color: #1A9DBA;
+}
+
+img.poster {
+	width: 174px;
+	float: left;
+	margin: 2em 3em 2em 0;
 }
