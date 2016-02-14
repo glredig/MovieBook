@@ -23,14 +23,20 @@
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5e5e5e', endColorstr='#262626',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
+.container {
+	display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+	width: 100%;
+}
+
 .panel {
 	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
     -moz-box-sizing: border-box;    /* Firefox, other Gecko */
     box-sizing: border-box;
-	position: absolute;
-	top: 0;
-	bottom: 0;
+    float: left;
 }
+
 .left_panel {
 	width: 33%;
 	box-shadow: inset -.5em 0 .5em 0 #aaaaaa;
@@ -53,7 +59,6 @@ hr {
 h1 {
 	font-size: 24px;
 	color: #1A9DBA;
-	/*font-variant: small-caps;*/
 	margin: 5px 0;
 }
 
@@ -68,7 +73,7 @@ li.selector {
 	text-align: center;
 	width: 150px;
 	float: left;
-	margin-top: 3em;
+	margin-bottom: 3em;
 }
 
 li.selector:nth-child(odd) {
@@ -101,13 +106,13 @@ img.poster {
 }
 
 ul.credits_list {
-	width: 350px;
+	width: 340px;
 	margin-left: 2em;
 }
 
 ul.credits_list li {
 	clear: both;
-	height: 66px;
+	height: 76px;
 	padding: 5px 0;
 	cursor: pointer;
 }
@@ -129,6 +134,7 @@ ul.credits_list li.selected div.image {
 ul.credits_list li div.name {
 	float: right;
 	width: 250px;
+	margin-top: 15px;
 }
 
 ul.credits_list li.selected div.name h2,
@@ -138,7 +144,7 @@ ul.credits_list li.selected div.name span {
 
 .actor_headshot {
 	float: right;
-	margin-right: 2em;
+	margin-right: 1em;
 	text-align: center;
 	min-width: 347px;
 }
