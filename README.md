@@ -8,6 +8,7 @@ Implementation of an AngularJS app which displays movie info (currently for the 
 
 1. Clone this repository to your machine
 2. Add `secrets.js` file to the app's root directory
+	
 	```javascript
 	// secrets.js
 	var api_key = '[Your TMDB api_key]';
