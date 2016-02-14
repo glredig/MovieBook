@@ -1,13 +1,18 @@
-app.controller('MoviesController', function($scope, $http, $q) {
+app.controller('MoviesController', function($scope, $http, $q, movieService) {
 	var base_url;
 	$scope.movies = [];
 
-	$http.get('https://api.themoviedb.org/3/configuration?api_key=' + api_key)
-		.then(function(data) {
-			console.log(data);
-			base_url = data.data.images.base_url;
+	movieService.getConfig()
+		.then(function(url) {
+			base_url = url;
 			populateMovies();
-		});
+		})
+	// $http.get('https://api.themoviedb.org/3/configuration?api_key=' + api_key)
+	// 	.then(function(data) {
+	// 		console.log(data);
+	// 		base_url = data.data.images.base_url;
+	// 		populateMovies();
+	// 	});
 
 	function populateMovies() {
 		$http.get('https://api.themoviedb.org/3/collection/528?api_key=' + api_key)

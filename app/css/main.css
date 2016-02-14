@@ -35,6 +35,7 @@
     -moz-box-sizing: border-box;    /* Firefox, other Gecko */
     box-sizing: border-box;
     float: left;
+    position: relative;
 }
 
 .left_panel {
