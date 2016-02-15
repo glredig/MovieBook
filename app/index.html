@@ -23,7 +23,7 @@
 					<ul>
 						<li ng-repeat="movie in movies" ng-click="updateSelectedMovie(movie)" class="selector" ng-class="
 						{'selected': selected_movie == movie}">
-							<div style="background-image: url('{{ movie.thumb_url }}');"></div>
+							<div ng-style="{'background-image': 'url(' + movie.thumb_url + ')'}"></div>
 							<h2>{{ movie.title | uppercase }}</h2>
 							<p>{{ movie.director }}</p>
 						</li>
@@ -44,7 +44,7 @@
 					<hr />
 
 					<div>
-						<img src="{{selected_movie.poster_url}}" class="poster" />
+						<img ng-src="{{selected_movie.poster_url}}" class="poster" />
 						<h2>WHO MADE IT?</h2>
 						<br>
 						<p>
@@ -67,7 +67,7 @@
 					<hr />
 					<ul class="credits_list" style="float: left;">
 						<li ng-repeat="actor in selected_movie.actors" ng-click="updateSelectedActor(actor)" ng-class="{'selected': selected_actor == actor}">
-							<div ng-if="actor.thumb_url !== ''" class="image" style="background-image: url('{{ actor.thumb_url }}');"> </div>
+							<div ng-if="actor.thumb_url !== ''" class="image" ng-style="{'background-image': 'url(\'{{ actor.thumb_url }}\')'}"> </div>
 							<div ng-if="actor.thumb_url === ''" class="image" style="background-image: url('./images/pic_unavailable.png');"> </div>
 							<div class="name">
 								<h2>{{ actor.name | uppercase }}</h2>
@@ -76,7 +76,7 @@
 						</li>
 					</ul>
 					<div ng-if="selected_actor !== undefined" class="actor_headshot" style="float: right;">
-						<img ng-if="selected_actor.image_url" src="{{ selected_actor.image_url }}" />
+						<img ng-if="selected_actor.image_url" ng-src="{{ selected_actor.image_url }}" />
 						<h2 ng-if="selected_actor.image_url === ''">NO IMAGE AVAILABLE</h2>
 					</div>
 				</div>
