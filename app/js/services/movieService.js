@@ -21,6 +21,7 @@ app.service('movieService', function($http, $q) {
 				data.data.parts.forEach(function(movie) {
 					movies.movies_data[movie.id] = movie;
 				});
+
 				return movies;
 			});
 	};
