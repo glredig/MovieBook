@@ -1,83 +1,84 @@
-app.controller('MoviesController', function($scope, $http, $q, movieService) {
+app.controller('MoviesController', function($scope, $q, movieService) {
 	var base_url;
-	$scope.movies = [];
+	$scope.movies = {};
 
+	// Use TMDB API to grab base url for images, then continue with init
 	movieService.getConfig()
 		.then(function(url) {
 			base_url = url;
 			populateMovies();
 		})
 
-	function populateMovies() {
-		movieService.getCollection()
-			.then(function(movies) {
-				$scope.movies = movies;
-				$scope.selected_movie = movies[0];
 
-				populateCredits();
+
+	// Get all movies in the collection (currently hardcoded
+	// to get the Terminator collection)
+	function populateMovies() {
+		movieService.getCollection(528)
+			.then(function(movies) {
+				$scope.movies = movies.movies_data;
+				$scope.selected_movie = $scope.movies[movies.first_id];
+
+				populatePosters();
 			})
 	}
 
-	function populateCredits() {
-		var credits_promises = [];
+
+
+	// In order to lazy load, we have to populate the
+	// movie posters for all movies in the collection (to 
+	// allow for movie selection)
+	function populatePosters() {
+		var poster_promises = [];
+
+		for (var id in $scope.movies) {
+
+			// Watch out for closure on id
+			(function (id) {
+				movieService.getMovie(id, base_url)
+					.then(function(images) {
+						$scope.movies[id].poster_url = images.poster_url;
+						$scope.movies[id].thumb_url = images.thumb_url;
+					})
 				
-		$scope.movies.forEach(function(movie) {
-			movie.writers = [];
-			movie.stars = [];
-			movie.actors = [];
+			})(id);
+		}
 
-			movieService.getMovie(movie.id, base_url)
-				.then(function(images) {
-					movie.poster_url = images.poster_url;
-					movie.thumb_url = images.thumb_url;
-				});
+		// Populate credits for default movie on init
+		populateCredits($scope.selected_movie.id);
+	}
 
-			credits_promises.push($http.get('https://api.themoviedb.org/3/movie/' + movie.id + '/credits?api_key=' + api_key)
-				.then(function(data) {
-					data.data.crew.forEach(function(member) {
-						if (member.job === 'Director') {
-							movie.director = member.name;
 
-						}
-						else if (member.job === 'Writer') {
-							movie.writers.push(member.name);
-						}
-					});
-
-					data.data.cast.forEach(function(star) {
-						var actor = {};
-
-						actor.name = star.name;
-						actor.character = star.character;
-
-						if (star.profile_path) {
-							actor.thumb_url = base_url + '/w185' + star.profile_path;
-							actor.image_url = base_url + '/h632' + star.profile_path;
-						}
-						else {
-							actor.thumb_url = actor.image_url = '';
-						}
-
-						movie.actors.push(actor);
-						if (movie.stars.length < 5) {
-							movie.stars.push(actor.name);									
-						}
-					});
-				}));
-		});
-
-		// When all credits are fetched, set the initial selected actor
-		$q.all(credits_promises).then(function() {
-			$scope.selected_actor = $scope.selected_movie.actors[0]
-			;
-		});
+	// Fetch movie info for movie with @id
+	function populateCredits(id) {
+		return movieService.getCredits(id, base_url)
+			.then(function(credits) {
+				$scope.movies[id].writers = credits.writers;
+				$scope.movies[id].stars = credits.stars;
+				$scope.movies[id].actors = credits.actors;
+				$scope.movies[id].director = credits.director;
+			})
 	}
 
 	$scope.updateSelectedMovie = function(movie) {
-		$scope.selected_movie = movie;
+		// This will show the spinner
+		$scope.selected_movie = undefined;
 
-		// Make sure to select first actor when switching movies
-		$scope.updateSelectedActor(movie.actors[0]);
+		if ($scope.movies[movie.id].actors === undefined) {
+			populateCredits(movie.id)
+				.then(function() {
+					$scope.selected_movie = $scope.movies[movie.id];
+					
+					// Make sure to select first actor when switching movies
+					$scope.updateSelectedActor($scope.movies[movie.id].actors[0]);
+				})
+		}
+		else {
+			$scope.selected_movie = $scope.movies[movie.id];
+					
+			// Make sure to select first actor when switching movies
+			$scope.updateSelectedActor($scope.movies[movie.id].actors[0]);
+		}
 	};
 
 	$scope.updateSelectedActor = function(actor) {
