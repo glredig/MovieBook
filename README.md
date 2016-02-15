@@ -17,7 +17,7 @@ Implementation of an AngularJS app which displays movie info (currently for the 
 
 # To do
 
-1. Lazy load movie info
-2. Add specs
-3. Add loading spinners
+~~1. Lazy load movie info~~
+~~2. Add specs~~
+~~3. Add loading spinners~~
 4. Add collection search (expand beyond Terminator)

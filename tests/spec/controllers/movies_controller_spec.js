@@ -15,10 +15,6 @@ describe('MoviesController', function() {
 
 	describe('Actions', function() {
 		describe('updateSelectedMovie', function() {
-			describe('movie not cached', function() {
-				// Test in MovieService
-			});
-
 			describe('movie cached', function() {
 				it('sets selected_movie to cached movie', function() {
 					var movie = {

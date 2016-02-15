@@ -45,7 +45,9 @@ app.controller('MoviesController', function($scope, $q, movieService) {
 		}
 
 		// Populate credits for default movie on init
-		populateCredits($scope.selected_movie.id);
+		populateCredits($scope.selected_movie.id).then(function() {
+			$scope.updateSelectedActor($scope.selected_movie.actors[0]);
+		});
 	}
 
 
